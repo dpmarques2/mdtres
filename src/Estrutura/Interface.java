@@ -3,20 +3,25 @@ package Estrutura;
 
 import java.io.StringReader;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class Interface extends javax.swing.JFrame {
 
     public JTextArea jTextArea;
-    
+    public JTextField jText;
     
     public void executar()throws Exception{
         
-      
-       jTextArea  = jTextArea1;
+       jText  = campoTexto;
+       String expr;
+       expr = (String)jText.getText();
+       Lexer lexer = new Lexer(new StringReader(expr));
+        
+       /*jTextArea  = jTextArea1;
        String expr;
        expr = (String)jTextArea.getText();
-       Lexer lexer = new Lexer(new StringReader(expr));
+       Lexer lexer = new Lexer(new StringReader(expr));*/
        
        String resultado="";
        
@@ -24,16 +29,20 @@ public class Interface extends javax.swing.JFrame {
            Token token = lexer.yylex();
            if(token == null){
                
-               jTextArea2.setText(resultado);
+                jTextArea2.setText(resultado);
                 
-                /*String campo = jTextArea1.getText().trim();
+                String linha= resultado;
+                //String linha=campoTexto.setText(resultado).trim();
                 
                 DefaultTableModel val = (DefaultTableModel)jTable1.getModel();
-                val.addRow(new String[](Linha));
+               
+                val.addRow(new String[]{linha});
                 
-                jTextArea1.setText("");
-                jTextArea1.requestFocus();*/
-                        
+                //campoTexto.setText("");
+                
+                campoTexto.requestFocus();
+                
+                //campoTexto.setText(resultado);
                 return;
            }
                 
@@ -112,6 +121,7 @@ public class Interface extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        campoTexto = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -119,10 +129,10 @@ public class Interface extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Entrada");
+        jLabel1.setText("Entrada:");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Resultado");
+        jLabel2.setText("Resultado:");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -140,7 +150,7 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Jefferson\\Desktop\\1967_16x16.png")); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Estrutura/1967_16x16.png"))); // NOI18N
         jButton2.setText("Executar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,17 +160,10 @@ public class Interface extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Linha", "Codigo", "Token"
+                "linha", "Codigo", "Token"
             }
         ));
         jScrollPane3.setViewportView(jTable1);
@@ -173,7 +176,7 @@ public class Interface extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Salvar");
+        jLabel3.setText("Salvar:");
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Estrutura/8441_16x16.png"))); // NOI18N
         jButton3.setText("Salvar");
@@ -216,7 +219,10 @@ public class Interface extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(campoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -229,15 +235,17 @@ public class Interface extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(campoTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -247,7 +255,7 @@ public class Interface extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        jTextArea2.setText("");
+        jTextArea1.setText("");
         jTextArea2.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -298,6 +306,7 @@ public class Interface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField campoTexto;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
